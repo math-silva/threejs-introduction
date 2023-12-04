@@ -35,8 +35,8 @@
       // Create a scene
       const scene = new THREE.Scene();
       
-      const axesHelper = new THREE.AxesHelper( 100 );
-      scene.add( axesHelper );
+      // const axesHelper = new THREE.AxesHelper( 100 );
+      // scene.add( axesHelper );
 
       // Create a camera
       const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -141,7 +141,7 @@
         deer.position.x += deltaX;
         deer.position.z += deltaZ;
 
-        if (Math.abs(deer.position.z) > 20 || Math.abs(deer.position.x) > 20) {
+        if (Math.abs(deer.position.z) > 40 || Math.abs(deer.position.x) > 20) {
           deer.position.set(0, 0, 0);
         }
 
