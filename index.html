@@ -3,9 +3,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Three.js Introduction</title>
-
-  <!-- import three js and webgl -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
 </head>
 <body>
   <canvas id="canvas" width="100%" height="100%"></canvas>
@@ -16,7 +13,7 @@
         "three/addons/": "https://unpkg.com/three@0.139.2/examples/jsm/"
       }
     }
-  </script>  
+  </script>
   <script type="module">
     import * as THREE from 'three';
     
@@ -45,7 +42,7 @@
       const controls = new OrbitControls(camera, canvas);
       controls.update();
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6 );
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
       scene.add(ambientLight);
 
       const spotlight = new THREE.SpotLight(0xffffff, 0.7);
@@ -100,7 +97,7 @@
         mixer = new THREE.AnimationMixer(deer);
         const action = mixer.clipAction(gltf.animations[0]); // Certifique-se de que 0 é o índice correto para a animação de caminhada
         action.play();
-        function animate( time ) {
+        function animate() {
           requestAnimationFrame(animate);
           
           updateDeer(deer, mixer);
@@ -141,7 +138,7 @@
         deer.position.x += deltaX;
         deer.position.z += deltaZ;
 
-        if (Math.abs(deer.position.z) > 40 || Math.abs(deer.position.x) > 20) {
+        if (Math.abs(deer.position.z) > 40 || Math.abs(deer.position.x) > 40) {
           deer.position.set(0, 0, 0);
         }
 
