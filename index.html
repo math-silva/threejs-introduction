@@ -2,13 +2,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <title>Three.js Introduction</title>
-
-  <!-- import three js and webgl -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
 </head>
 <body>
-  <canvas id="canvas" width="100%" height="100%"></canvas>
   <script type="importmap">
     {
       "imports": {
@@ -17,138 +14,6 @@
       }
     }
   </script>  
-  <script type="module">
-    import * as THREE from 'three';
-    
-    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-    import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-
-    init();
-
-    function init() {
-      const canvas = document.getElementById('canvas');
-      const renderer = new THREE.WebGLRenderer({ canvas: canvas });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.shadowMap.enabled = true;
-      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-      
-      // Create a scene
-      const scene = new THREE.Scene();
-      
-      // const axesHelper = new THREE.AxesHelper( 100 );
-      // scene.add( axesHelper );
-
-      // Create a camera
-      const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
-      camera.position.set(9, 7, -10);
-  
-      const controls = new OrbitControls(camera, canvas);
-      controls.update();
-
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6 );
-      scene.add(ambientLight);
-
-      const spotlight = new THREE.SpotLight(0xffffff, 0.7);
-      let target = spotlight.target;
-      spotlight.position.set(2.5, 12, 2.5);
-      spotlight.angle = Math.PI / 6;
-      spotlight.penumbra = 0.5;
-      spotlight.decay = 1;
-      spotlight.distance = 0;
-
-      spotlight.castShadow = true;
-      spotlight.shadow.bias = -0.001;
-      spotlight.shadow.mapSize.width = 1024;
-      spotlight.shadow.mapSize.height = 1024;
-      spotlight.shadow.camera.near = 1;
-      spotlight.shadow.camera.far = 60;
-      spotlight.shadow.focus = 1;
-      scene.add(spotlight);
-      scene.add(target);
-
-      const lightHelper = new THREE.SpotLightHelper(spotlight);
-      scene.add(lightHelper);
-
-      const planeGeometry = new THREE.PlaneGeometry(100, 100);
-      const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xbcbcbc });
-
-      const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-      plane.rotation.x = -Math.PI / 2;
-      plane.receiveShadow = true;
-      scene.add(plane);
-
-      // Adicionar modelo 3D
-      // https://sketchfab.com/3d-models/deer-walk-229ba6ba0d1e4811ab89382f74601e16
-      let deer;
-      let mixer;
-      const loader = new GLTFLoader();
-      loader.load('/deer/scene.gltf', function (gltf) {
-        console.log(gltf.scene);
-        deer = gltf.scene;
-        deer.scale.set(0.01, 0.01, 0.01);
-        deer.position.set(0, 0, 0);
-        deer.rotation.y = Math.PI / 2;
-        scene.add(deer);
-
-        deer.traverse(function (child) {
-          if (child.isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-          }
-        });
-
-        mixer = new THREE.AnimationMixer(deer);
-        const action = mixer.clipAction(gltf.animations[0]); // Certifique-se de que 0 é o índice correto para a animação de caminhada
-        action.play();
-        function animate( time ) {
-          requestAnimationFrame(animate);
-          
-          updateDeer(deer, mixer);
-          spotlight.target.position.set(deer.position.x, deer.position.y, deer.position.z);
-          lightHelper.update();
-          
-          renderer.render(scene, camera);
-        }
-        animate();
-      });
-
-      document.addEventListener('keydown', handleKeyDown);
-  
-      function handleKeyDown(event) {
-        switch (event.key.toLowerCase()) {
-          case 'a':
-            deer.rotation.y += 0.05;
-            break;
-          case 'd':
-            deer.rotation.y -= 0.05;
-            break;
-          case 'c':
-            spotlight.color.setHex(Math.random() * 0xffffff);
-            break;
-          default:
-            break;
-        }
-      }
-  
-      function updateDeer(deer, mixer) {
-        const speed = 0.012;
-        const angle = deer.rotation.y + Math.PI / 2;
-        console.log(angle * 180 / Math.PI,)
-
-        const deltaX = speed * Math.sin(angle);
-        const deltaZ = speed * Math.cos(angle);
-
-        deer.position.x += deltaX;
-        deer.position.z += deltaZ;
-
-        if (Math.abs(deer.position.z) > 40 || Math.abs(deer.position.x) > 20) {
-          deer.position.set(0, 0, 0);
-        }
-
-        mixer.update(0.007);
-      }
-    }
-
-  </script>
+  <script type="module" src="/src/js/index.js"></script>
 </body>
 </html>
