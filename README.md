@@ -1,6 +1,6 @@
 # Three.js Introduction
 
-![threejs-introduction](thumbnail.png)
+![threejs-introduction](/assets/thumbnail.png)
 
 ## Introduction
 
