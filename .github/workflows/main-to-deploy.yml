@@ -11,14 +11,16 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+      with:
+        ref: deploy
     
-    - name: Create and checkout deploy branch
+    - name: Git config
       run: |
-        git checkout -B deploy
-        git pull origin deploy || true
+        git config --global user.name matheuxito
+        git config --global user.email matheus.souza28042001@gmail.com
 
-    - name: Merge main into deploy
+    - name: Merge main to deploy
       run: |
-        git merge --no-ff main
-        git push origin deploy
+        git merge main
+        git push
