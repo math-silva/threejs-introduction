@@ -2,9 +2,35 @@
 
 [![threejs-introduction](/assets/thumbnail.png)](https://matheuxito.github.io/threejs-introduction/)
 
+## Table of Contents
+
+* [Author](#author)
+* [Introduction](#introduction)
+* [Requirements](#requirements)
+* [How to Run](#how-to-run)
+* [Tutorial](#tutorial)
+  * [1. Importing Three.js](#1-importing-threejs)
+  * [2. Setting up the scene](#2-setting-up-the-scene)
+  * [3. Adding lights](#3-adding-lights)
+  * [4. Importing a 3D model](#4-importing-a-3d-model)
+    * [4.1. Importing the model](#41-importing-the-model)
+    * [4.2. Adding animations](#42-adding-animations)
+  * [5. Adding mechanics](#5-adding-mechanics)
+    * [5.1. Moving the deer](#51-moving-the-deer)
+    * [5.2. Spotting the deer with the light](#52-spotting-the-deer-with-the-light)
+    * [5.3. Adding keyboard controls](#53-adding-keyboard-controls)
+  * [6. Conclusion](#6-conclusion)
+* [Credits](#credits)
+* [License](#license)
+
+## Author
+
+- [Matheus Silva](https://www.github.com/matheuxito) | [LinkedIn](https://www.linkedin.com/in/matheuxito/)
+
 ## Introduction
 
 This repository provides a simple introduction to Three.js, a popular JavaScript library for creating 3D graphics in the browser. Learn the basics of setting up a scene, adding lights, and importing 3D models from [Sketchfab](https://sketchfab.com/).
+
 
 ## Requirements
 
