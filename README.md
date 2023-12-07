@@ -198,7 +198,7 @@ const ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
 scene.add( ambientLight );
 
 const spotLight = new THREE.SpotLight( 0xffffff, 0.7 );
-spotLight.position.set( 2, 12, 2 );
+spotLight.position.set(2, 12, 2);
 spotLight.angle = Math.PI / 6;
 spotLight.penumbra = 0.5;
 spotLight.decay = 1;
@@ -272,7 +272,7 @@ const ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
 scene.add( ambientLight );
 
 const spotLight = new THREE.SpotLight( 0xffffff, 0.7 );
-spotLight.position.set( 2, 12, 2 );
+spotLight.position.set(2, 12, 2);
 spotLight.angle = Math.PI / 6;
 spotLight.penumbra = 0.5;
 spotLight.decay = 1;
@@ -634,7 +634,7 @@ const ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
 scene.add( ambientLight );
 
 const spotLight = new THREE.SpotLight( 0xffffff, 0.7 );
-spotLight.position.set( 2, 12, 2 );
+spotLight.position.set(2, 12, 2);
 spotLight.angle = Math.PI / 6;
 spotLight.penumbra = 0.5;
 spotLight.decay = 1;
