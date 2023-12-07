@@ -543,10 +543,10 @@ Add keyboard controls to rotate the deer:
 ```js
 window.addEventListener('keydown', (event) => {
   switch (event.key) {
-    case 'ArrowLeft':
+    case 'a':
       deer.rotation.y += 0.05;
       break;
-    case 'ArrowRight':
+    case 'd':
       deer.rotation.y -= 0.05;
       break;
   }
