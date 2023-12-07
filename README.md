@@ -337,7 +337,7 @@ loader.load('../../assets/deer_walk/scene.gltf', function (gltf) {
 Note that the model has no shadow. To fix this, we need to set the `castShadow` and `receiveShadow` attributes to `true` in the model. We can do this by traversing the model and setting the attribute to `true` in all the meshes:
 
 ```js
-loader.load('../../assets/deer/scene.gltf', function (gltf) {
+loader.load('../../assets/deer_walk/scene.gltf', function (gltf) {
   deer = gltf.scene;
   deer.scale.set(0.01, 0.01, 0.01);
 
@@ -361,7 +361,7 @@ Now we can see the shadow of the deer on the plane.
 Now, let's add the animation to the deer:
 
 ```js
-loader.load('../../assets/deer/scene.gltf', function (gltf) {
+loader.load('../../assets/deer_walk/scene.gltf', function (gltf) {
   deer = gltf.scene;
   deer.scale.set(0.01, 0.01, 0.01);
 
@@ -454,7 +454,7 @@ scene.add( plane );
 let deer;
 let mixer;
 const loader = new GLTFLoader();
-loader.load('../../assets/deer/scene.gltf', function (gltf) {
+loader.load('../../assets/deer_walk/scene.gltf', function (gltf) {
   deer = gltf.scene;
   deer.scale.set(0.01, 0.01, 0.01);
 
@@ -669,7 +669,7 @@ scene.add( plane );
 let deer;
 let mixer;
 const loader = new GLTFLoader();
-loader.load('../../assets/deer/scene.gltf', function (gltf) {
+loader.load('../../assets/deer_walk/scene.gltf', function (gltf) {
   deer = gltf.scene;
   deer.scale.set(0.01, 0.01, 0.01);
 
