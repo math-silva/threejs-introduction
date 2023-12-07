@@ -13,11 +13,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     
-    - name: Switch to deploy branch
-      run: git checkout deploy
-    
+    - name: Create and checkout deploy branch
+      run: |
+        git checkout -B deploy
+        git pull origin deploy || true
+
     - name: Merge main into deploy
-      run: git merge main
-    
-    - name: Push changes to deploy branch
-      run: git push origin deploy
+      run: |
+        git merge --no-ff main
+        git push origin deploy
