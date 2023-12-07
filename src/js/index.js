@@ -64,7 +64,7 @@ scene.add( plane );
 let deer;
 let mixer;
 const loader = new GLTFLoader();
-loader.load('../../threejs-introduction/assets/deer/scene.gltf', function (gltf) {
+loader.load('/threejs-introduction/assets/deer_walk/scene.gltf', function (gltf) {
   console.log(gltf.scene);
   deer = gltf.scene;
   deer.scale.set(0.01, 0.01, 0.01);
