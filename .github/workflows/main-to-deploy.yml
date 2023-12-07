@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
       with:
         ref: deploy
     
@@ -19,6 +19,11 @@ jobs:
       run: |
         git config --global user.name "Matheus Silva"
         git config --global user.email matheus.souza28042001@gmail.com
+
+    - name: Update deploy branch
+      run: |
+        git fetch
+        git pull origin deploy
 
     - name: Merge main to deploy
       run: |
