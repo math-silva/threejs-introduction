@@ -32,5 +32,5 @@ jobs:
     - name: Merge main to deploy
       run: |
         git fetch
-        git merge -X ours origin/main
+        git merge origin/main
         git push origin deploy
