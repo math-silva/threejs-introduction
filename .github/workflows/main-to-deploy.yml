@@ -11,12 +11,13 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
-
+      uses: actions/checkout@v3
+    
+    - name: Switch to deploy branch
+      run: git checkout deploy
+    
     - name: Merge main into deploy
-      run: |
-        git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor }}@users.noreply.github.com"
-        git checkout deploy
-        git merge main
-        git push origin deploy
+      run: git merge main
+    
+    - name: Push changes to deploy branch
+      run: git push origin deploy
