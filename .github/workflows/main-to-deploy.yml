@@ -22,5 +22,5 @@ jobs:
 
     - name: Merge main to deploy
       run: |
-        git merge main
+        git merge --strategy=ours main
         git push
