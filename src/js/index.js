@@ -3,64 +3,70 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
+// Scene
+
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(18, 7, 12);
+
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.shadowMap.enabled = true;
 document.body.appendChild( renderer.domElement );
 
-const scene = new THREE.Scene();
+// Helpers
 
-const axesHelper = new THREE.AxesHelper(50);
+const axesHelper = new THREE.AxesHelper( 50 );
 scene.add( axesHelper );
 
-const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(18, 7, 12);
-
-const controls = new OrbitControls(camera, renderer.domElement);
+const controls = new OrbitControls( camera, renderer.domElement );
 controls.update();
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.6 );
-scene.add(ambientLight);
+// Lights
 
-const spotlight = new THREE.SpotLight(0xffffff, 0.7);
-let target = spotlight.target;
-spotlight.position.set(2.5, 12, 2.5);
-spotlight.angle = Math.PI / 6;
-spotlight.penumbra = 0.5;
-spotlight.decay = 1;
-spotlight.distance = 0;
+const ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
+scene.add( ambientLight );
 
-spotlight.castShadow = true;
-spotlight.shadow.bias = -0.001;
-spotlight.shadow.mapSize.width = 1024;
-spotlight.shadow.mapSize.height = 1024;
-spotlight.shadow.camera.near = 1;
-spotlight.shadow.camera.far = 60;
-spotlight.shadow.focus = 1;
-scene.add(spotlight);
-scene.add(target);
+const spotLight = new THREE.SpotLight( 0xffffff, 0.7 );
+spotLight.position.set( 2, 12, 2 );
+spotLight.angle = Math.PI / 6;
+spotLight.penumbra = 0.5;
+spotLight.decay = 1;
+spotLight.distance = 0;
 
-const lightHelper = new THREE.SpotLightHelper(spotlight);
-scene.add(lightHelper);
+spotLight.castShadow = true;
+spotLight.shadow.bias = -0.001;
+spotLight.shadow.mapSize.width = 1024;
+spotLight.shadow.mapSize.height = 1024;
+spotLight.shadow.camera.near = 1;
+spotLight.shadow.camera.far = 60;
+spotLight.shadow.focus = 1;
 
-const planeGeometry = new THREE.PlaneGeometry(100, 100);
+scene.add( spotLight );
+scene.add( spotLight.target );
+
+const spotLightHelper = new THREE.SpotLightHelper( spotLight );
+scene.add( spotLightHelper );
+
+const planeGeometry = new THREE.PlaneGeometry( 100, 100 );
 const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xbcbcbc });
 
-const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+// Plane
+
+const plane = new THREE.Mesh( planeGeometry, planeMaterial );
 plane.rotation.x = -Math.PI / 2;
 plane.receiveShadow = true;
-scene.add(plane);
+scene.add( plane );
 
-// 3D Model from Sketchfab
-// https://sketchfab.com/3d-models/deer-walk-229ba6ba0d1e4811ab89382f74601e16
+// Importing the deer model
+
 let deer;
 let mixer;
 const loader = new GLTFLoader();
-loader.load('../../assets/deer/scene.gltf', function (gltf) {
-  console.log(gltf.scene);
+loader.load('../../assets/deer_walk/scene.gltf', function (gltf) {
   deer = gltf.scene;
   deer.scale.set(0.01, 0.01, 0.01);
-  deer.position.set(0, 0, 0);
   scene.add(deer);
 
   deer.traverse(function (child) {
@@ -69,26 +75,39 @@ loader.load('../../assets/deer/scene.gltf', function (gltf) {
       child.receiveShadow = true;
     }
   });
-
+  
   mixer = new THREE.AnimationMixer(deer);
-  const action = mixer.clipAction(gltf.animations[0]); // Certifique-se de que 0 é o índice correto para a animação de caminhada
-  action.play();
-  function animate( time ) {
-    requestAnimationFrame(animate);
-    
-    updateDeer(deer, mixer);
-    spotlight.target.position.set(deer.position.x, deer.position.y, deer.position.z);
-    lightHelper.update();
-    
-    renderer.render(scene, camera);
-  }
-  animate();
+  gltf.animations.forEach((clip) => {
+    mixer.clipAction(clip).play();
+  });
 });
 
-document.addEventListener('keydown', handleKeyDown);
+// Animation
 
-function handleKeyDown(event) {
-  switch (event.key.toLowerCase()) {
+function animate() {
+  requestAnimationFrame( animate );
+  renderer.render( scene, camera );
+  
+  if (mixer) mixer.update(0.01);
+
+  if (deer) {
+    deer.position.x += 0.01 * Math.cos(deer.rotation.y);
+    deer.position.z -= 0.01 * Math.sin(deer.rotation.y);
+
+    if (Math.abs(deer.position.x) > 30 || Math.abs(deer.position.z) > 30) {
+      deer.position.x = 0;
+    }
+    
+    spotLight.target = deer;
+    spotLightHelper.update();
+  }
+}
+animate();
+
+// Keyboard controls
+
+window.addEventListener('keydown', (event) => {
+  switch (event.key) {
     case 'a':
       deer.rotation.y += 0.05;
       break;
@@ -96,25 +115,24 @@ function handleKeyDown(event) {
       deer.rotation.y -= 0.05;
       break;
     case 'c':
-      spotlight.color.setHex(Math.random() * 0xffffff);
+      spotLight.color.setHex(Math.random() * 0xffffff);
       break;
-    default:
+    case 'r':
+      deer.position.set(0, 0, 0);
+      deer.rotation.set(0, 0, 0);
+      break;
+    case 's':
+      spotLight.castShadow = !spotLight.castShadow;
+      break;
+    case 'h':
+      spotLightHelper.visible = !spotLightHelper.visible;
+      axesHelper.visible = !axesHelper.visible;
       break;
   }
-}
+});
 
-function updateDeer(deer, mixer) {
-  const speed = 0.012;
-  const angle = deer.rotation.y;
-  const deltaX = speed * Math.cos(angle);
-  const deltaZ = speed * Math.sin(angle);
-
-  deer.position.x += deltaX;
-  deer.position.z -= deltaZ;
-
-  if (Math.abs(deer.position.z) > 40 || Math.abs(deer.position.x) > 20) {
-    deer.position.set(0, 0, 0);
-  }
-
-  mixer.update(0.007);
-}
+window.addEventListener('resize', function () {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+}, false);
