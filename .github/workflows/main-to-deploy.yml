@@ -20,6 +20,10 @@ jobs:
         git config --global user.name "Matheus Silva"
         git config --global user.email matheus.souza28042001@gmail.com
 
+    - name: Verify branches
+      run: |
+        git branch -a
+
     - name: Update deploy branch
       run: |
         git fetch
@@ -28,5 +32,5 @@ jobs:
     - name: Merge main to deploy
       run: |
         git fetch
-        git merge origin main
+        git merge -X ours origin/main
         git push origin deploy
