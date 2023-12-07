@@ -12,25 +12,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
+
+    - name: Merge Main into Deploy
+      uses: everlytic/branch-merge@1.1.2
       with:
-        ref: deploy
-    
-    - name: Git config
-      run: |
-        git config --global user.name "Matheus Silva"
-        git config --global user.email matheus.souza28042001@gmail.com
-
-    - name: Verify branches
-      run: |
-        git branch -a
-
-    - name: Update deploy branch
-      run: |
-        git fetch
-        git pull origin deploy
-
-    - name: Merge main to deploy
-      run: |
-        git fetch
-        git merge --allow-unrelated-histories -X ours origin/main
-        git push origin deploy
+        github_token: ${{ github.token }}
+        source_ref: deploy
+        target_branch: main
+        commit_message_template: 'chore(deploy): merge main into deploy'
