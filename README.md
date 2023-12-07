@@ -34,39 +34,53 @@ This repository provides a simple introduction to Three.js, a popular JavaScript
 
 ## Requirements
 
-Before running this project, ensure you have http-server installed. If you don't have it, you can install it using npm:
+Before running this project, ensure you have a web server installed. You can choose between using `http-server` with npm (Node.js) or the built-in `http.server` module with Python.
+
+### For Node.js Users
+
+If you have Node.js installed, you can use `http-server` from npm. Install it globally using the following command:
 
 ```bash
 npm install http-server -g
 ```
 
-or python:
+### For Python Users
 
-```bash
-pip install http-server
-```
+If you have Python installed (which is likely already the case), you can use the built-in `http.server` module. No additional installation is required.
 
 ## How to Run
 
-1. Clone this repo
+### 1. Clone the Repo
 
 ```bash
+# Clone the repository
 git clone https://github.com/matheuxito/threejs-introduction.git
 ```
 
-2. Navigate to the project folder
+### 2. Navigate to the Project Folder
 
 ```bash
+# Go to the project folder
 cd threejs-introduction
 ```
 
-3. Run the http-server
+### 3. Run the Web Server
+
+#### 3.1. Using npm (Node.js)
 
 ```bash
+# Start the server using npm and http-server
 http-server
 ```
 
-4. Open your browser and navigate to `http://localhost:8080`
+#### 3.2. Using Python
+
+```bash
+# Start the server using Python
+python -m http.server
+```
+
+This will initiate a web server. Access the project by opening your browser and navigating to `http://localhost:8080` or another port specified in the terminal.
 
 ## Tutorial
 
