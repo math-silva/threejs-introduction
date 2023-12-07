@@ -334,7 +334,7 @@ loader.load('../../assets/deer_walk/scene.gltf', function (gltf) {
 
 ![Deer Scene](/assets/screenshots/deer_scene.png)
 
-Note that the model has no shadow. To fix this, we need to set the `castShadow` attribute to `true` in the model. We can do this by traversing the model and setting the attribute to `true` in all the meshes:
+Note that the model has no shadow. To fix this, we need to set the `castShadow` and `receiveShadow` attributes to `true` in the model. We can do this by traversing the model and setting the attribute to `true` in all the meshes:
 
 ```js
 loader.load('../../assets/deer/scene.gltf', function (gltf) {
@@ -344,6 +344,7 @@ loader.load('../../assets/deer/scene.gltf', function (gltf) {
   deer.traverse((child) => {
     if (child.isMesh) {
       child.castShadow = true;
+      child.receiveShadow = true;
     }
   });
 
@@ -367,10 +368,11 @@ loader.load('../../assets/deer/scene.gltf', function (gltf) {
   deer.traverse((child) => {
     if (child.isMesh) {
       child.castShadow = true;
+      child.receiveShadow = true;
     }
   });
 
-  mixer = new THREE.AnimationMixer(deer);
+  mixer = new THREE.AnimationMixer( deer );
   const action = mixer.clipAction(gltf.animations[0]); // get the first (and only) animation
   action.play();
 
@@ -385,9 +387,7 @@ function animate() {
   requestAnimationFrame( animate );
   renderer.render( scene, camera );
 
-  if (mixer) {
-    mixer.update(0.01);
-  }
+  if (mixer) mixer.update(0.01);
 }
 animate();
 ```
@@ -457,19 +457,19 @@ const loader = new GLTFLoader();
 loader.load('../../assets/deer/scene.gltf', function (gltf) {
   deer = gltf.scene;
   deer.scale.set(0.01, 0.01, 0.01);
-  scene.add(deer);
 
-  deer.traverse(function (child) {
+  deer.traverse((child) => {
     if (child.isMesh) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
   });
-  
-  mixer = new THREE.AnimationMixer(deer);
-  gltf.animations.forEach((clip) => {
-    mixer.clipAction(clip).play();
-  });
+
+  mixer = new THREE.AnimationMixer( deer );
+  const action = mixer.clipAction(gltf.animations[0]); // get the first (and only) animation
+  action.play();
+
+  scene.add(deer);
 });
 
 function animate() {
@@ -581,7 +581,7 @@ function animate() {
     deer.position.z -= 0.01 * Math.sin(deer.rotation.y);
     
     if (Math.abs(deer.position.x) > 30 || Math.abs(deer.position.z) > 30) {
-      deer.position.x = 0;
+      deer.position.set(0, 0, 0);
     }
     
     spotLight.target = deer;
@@ -672,19 +672,19 @@ const loader = new GLTFLoader();
 loader.load('../../assets/deer/scene.gltf', function (gltf) {
   deer = gltf.scene;
   deer.scale.set(0.01, 0.01, 0.01);
-  scene.add(deer);
 
-  deer.traverse(function (child) {
+  deer.traverse((child) => {
     if (child.isMesh) {
       child.castShadow = true;
       child.receiveShadow = true;
     }
   });
-  
-  mixer = new THREE.AnimationMixer(deer);
-  gltf.animations.forEach((clip) => {
-    mixer.clipAction(clip).play();
-  });
+
+  mixer = new THREE.AnimationMixer( deer );
+  const action = mixer.clipAction(gltf.animations[0]); // get the first (and only) animation
+  action.play();
+
+  scene.add(deer);
 });
 
 // Animation
@@ -700,9 +700,9 @@ function animate() {
     deer.position.z -= 0.01 * Math.sin(deer.rotation.y);
 
     if (Math.abs(deer.position.x) > 30 || Math.abs(deer.position.z) > 30) {
-      deer.position.x = 0;
+      deer.position.set(0, 0, 0);
     }
-
+    
     spotLight.target = deer;
     spotLightHelper.update();
   }
