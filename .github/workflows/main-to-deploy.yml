@@ -12,12 +12,10 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-      with:
-        ref: deploy
 
-    - name: Merge deploy -> main
+    - name: Merge main -> deploy
       uses: devmasx/merge-branch@master
       with:
         type: now
-        target_branch: main
+        target_branch: deploy
         github_token: ${{ secrets.GITHUB_TOKEN }}
