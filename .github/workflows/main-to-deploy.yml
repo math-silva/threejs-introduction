@@ -12,11 +12,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-
-    - name: Merge Main into Deploy
-      uses: everlytic/branch-merge@1.1.2
       with:
-        github_token: ${{ github.token }}
-        source_ref: deploy
+        ref: deploy
+
+    - name: Merge deploy -> main
+      uses: devmasx/merge-branch@master
+      with:
+        type: now
         target_branch: main
-        commit_message_template: 'chore(deploy): merge main into deploy'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
