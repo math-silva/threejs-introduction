@@ -1,0 +1,22 @@
+name: Merge Main to Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  merge-main-to-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Merge main into deploy
+      run: |
+        git config user.name "${{ github.actor }}"
+        git config user.email "${{ github.actor }}@users.noreply.github.com"
+        git checkout deploy
+        git merge main
+        git push origin deploy
