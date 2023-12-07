@@ -32,5 +32,5 @@ jobs:
     - name: Merge main to deploy
       run: |
         git fetch
-        git merge origin/main
+        git merge --allow-unrelated-histories -X ours origin/main
         git push origin deploy
