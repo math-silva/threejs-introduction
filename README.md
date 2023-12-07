@@ -77,7 +77,7 @@ http-server
 
 ```bash
 # Start the server using Python
-python -m http.server
+python -m http.server -b localhost 8080
 ```
 
 This will initiate a web server. Access the project by opening your browser and navigating to `http://localhost:8080` or another port specified in the terminal.
