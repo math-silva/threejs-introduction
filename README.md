@@ -53,14 +53,12 @@ If you have Python installed (which is likely already the case), you can use the
 ### 1. Clone the Repo
 
 ```bash
-# Clone the repository
 git clone https://github.com/matheuxito/threejs-introduction.git
 ```
 
 ### 2. Navigate to the Project Folder
 
 ```bash
-# Go to the project folder
 cd threejs-introduction
 ```
 
