@@ -652,10 +652,10 @@ scene.add( spotLight.target );
 const spotLightHelper = new THREE.SpotLightHelper( spotLight );
 scene.add( spotLightHelper );
 
+// Plane
+
 const planeGeometry = new THREE.PlaneGeometry( 100, 100 );
 const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xbcbcbc });
-
-// Plane
 
 const plane = new THREE.Mesh( planeGeometry, planeMaterial );
 plane.rotation.x = -Math.PI / 2;
