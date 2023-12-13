@@ -67,14 +67,12 @@ cd threejs-introduction
 #### 3.1. Using npm (Node.js)
 
 ```bash
-# Start the server using npm and http-server
 http-server
 ```
 
 #### 3.2. Using Python
 
 ```bash
-# Start the server using Python
 python -m http.server -b localhost 8080
 ```
 
