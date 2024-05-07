@@ -1,6 +1,6 @@
 # Three.js Introduction
 
-[![threejs-introduction](/assets/thumbnail.png)](https://coding-math.github.io/threejs-introduction/)
+[![threejs-introduction](/assets/thumbnail.png)](https://math-silva.github.io/threejs-introduction/)
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@
 
 ## Author
 
-- [Matheus Silva](https://www.github.com/coding-math) | [LinkedIn](https://www.linkedin.com/in/matheussmsilva/)
+- [Matheus Silva](https://www.github.com/math-silva) | [LinkedIn](https://www.linkedin.com/in/matheussmsilva/)
 
 ## Introduction
 
@@ -53,7 +53,7 @@ If you have Python installed (which is likely already the case), you can use the
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/coding-math/threejs-introduction.git
+git clone https://github.com/math-silva/threejs-introduction.git
 ```
 
 ### 2. Navigate to the Project Folder
